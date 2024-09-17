@@ -5,21 +5,7 @@ import TodoItem from './TodoItem';
 
 
 let todoListItems =[
-  {
-    id:111111110,
-    checked : false,
-    describtion:"to do 1",
-  },
-  {
-    id:12222,
-    checked : false,
-    describtion:"to do 2",
-  },
-  {
-    id:2333333333,
-    checked : false,
-    describtion:"to do 3",
-  }
+  
 ]
 
  function App() {
