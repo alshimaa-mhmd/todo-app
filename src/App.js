@@ -4,15 +4,12 @@ import darkbg from './/images/bg-desktop-dark.jpg'
 import TodoItem from './TodoItem';
 
 
-let todoListItems =[
-  
-]
 
  function App() {
 
   const [item, setItem] = useState("");
   const [isDark, setIsDark] = useState(true);
-  const [todoList, setTodoList] = useState(todoListItems);
+  const [todoList, setTodoList] = useState([]);
   const [filtered, setFiltered] = useState('all');
 
   const filteredItems = todoList.filter( (item) => {
@@ -77,11 +74,11 @@ let todoListItems =[
   }
 
   return (
-    <div className="flex flex-col items-center transition-all duration-300 h-dvh">
+    <div className="flex flex-col items-center transition-all duration-300 h-dvh overflow-x-hidden">
       <div className=" w-[100%] h-56 flex flex-col items-center gap-10 p-8 transition-all duration-300 "
       style={{ backgroundImage: isDark ? `url(${darkbg})` : `url(${lightbg})` }}
       >
-        <div className="flex items-center justify-evenly gap-32  w-[100%] text-white">
+        <div className="flex items-center justify-between sm:justify-evenly sm:gap-32 w-[70%] sm:w-[100%] text-white">
           <p className='font-bold tracking-[10px] text-[27px]'>TODO</p>
           <div className='cursor-pointer' onClick={handleDarkMode}>
           { !isDark ? 
@@ -91,29 +88,29 @@ let todoListItems =[
           }
           </div>
         </div>
-        <div>
+        <div className='flex items-center'>
         <button className={`${isDark ? 'bg-[#25273c] text-slate-300 border-0' : 'bg-white text-black'} w-[45px] h-[45px] rounded-l-md transition-all duration-300 text-opacity-35`} onClick={handleAddButton}>
         ◯</button>
-        <input placeholder='Create a new todo...' className={`w-[305px] h-[45px] px-4 rounded-r-md focus:ring-0 focus:inset-0 ${isDark ? 'bg-[#25273c] text-slate-300 border-0' : 'bg-white text-black'} transition-all duration-300 sm:w-[535px] md:w-[515px] outline-none`} type="text" value={item} onChange={(e) => setItem(e.target.value)} onKeyUp={handleKeyPress}/>
+        <input placeholder='Create a new todo...' className={`w-[220px] h-[45px] px-4 rounded-r-md focus:ring-0 focus:inset-0 ${isDark ? 'bg-[#25273c] text-slate-300 border-0' : 'bg-white text-black'} transition-all duration-300 sm:w-[515px] outline-none`} type="text" value={item} onChange={(e) => setItem(e.target.value)} onKeyUp={handleKeyPress}/>
         </div>
       </div>
 
 
       <div className={`h-[70%] relative w-full ${isDark ? 'bg-[#181824]' : 'bg-[#f8f8f8]'}`}>
-        <div className={`absolute top-[105px] left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-lg border-slate-200 w-[350px] pt-4 overflow-y-auto max-h-screen h-[300px] scrollbar-none transition-all duration-300 sm:w-[580px] md:w-[560px] ${isDark ? 'bg-[#25273c] text-slate-300 ' : 'bg-white  text-black'}`}>
+        <div className={`absolute top-[105px] left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-lg border-slate-200 w-[265px] pt-4 overflow-y-auto max-h-screen h-[300px] scrollbar-none transition-all duration-300 sm:w-[580px] md:w-[560px] ${isDark ? 'bg-[#25273c] text-slate-300 ' : 'bg-white  text-black'}`}>
             {filteredItems.reverse().map((todoItem) => <TodoItem todoItem={todoItem} key={todoItem.id} onDelete={deleteItem} onToggle={handleCheckbox} isDark={isDark}/>)}
           </div>
       </div>
-      <div className={`border-t flex items-center justify-between w-[350px] sm:w-[580px] md:w-[560px] text-[#6c7187] absolute bottom-0 px-5 py-3 z-[100] ${isDark ? 'bg-[#25273c]  border-gray-700' : 'bg-white border-slate-300'} h-[50px]  absolute bottom-32 rounded-b-lg`}>
-              <span className='' > {todoList.filter(item => !item.checked).length} items left</span>
+      <div className={`border-t flex items-center justify-between w-[265px] sm:w-[580px] md:w-[560px] text-[#6c7187] absolute bottom-0 px-5 py-3 z-[100] ${isDark ? 'bg-[#25273c]  border-gray-700' : 'bg-white border-slate-300'} h-[50px]  absolute bottom-32 rounded-b-lg`}>
+              <span className='text-[15px] sm:text-[20px]' > {todoList.filter(item => !item.checked).length} items left</span>
               <div className='md:flex items-center justify-between hidden space-x-4'>
               <span className={`cursor-pointer hover:text-[#4c7cdf] ${filtered === 'all' ? "text-[#4c7cdf]" : ''}`} onClick={ () => setFiltered('all')}>All</span>
               <span className={`cursor-pointer hover:text-[#4c7cdf] ${filtered === 'active' ? "text-[#4c7cdf]" : ''}`} onClick={ () => setFiltered('active')}>Active</span>
               <span className={`cursor-pointer hover:text-[#4c7cdf] ${filtered === 'completed' ? "text-[#4c7cdf]" : ''}`} onClick={ () => setFiltered('completed')}>Completed</span>
               </div>
-              <span className='cursor-pointer hover:text-[#4c7cdf]' onClick={clearCompleted}>Clear Completed</span>
+              <span className='text-[15px] sm:text-[20px] cursor-pointer hover:text-[#4c7cdf]' onClick={clearCompleted}>Clear Completed</span>
           </div>
-      <div className={` text-center text-[#6c7187] w-[350px] sm:w-[580px] md:hidden rounded-lg ${isDark ? 'bg-[#25273c] ' : 'bg-white'} h-[45px] px-4 py-3 absolute bottom-10 space-x-4`}>
+      <div className={` text-center text-[#6c7187] w-[265px] sm:w-[580px] md:hidden rounded-lg ${isDark ? 'bg-[#25273c] ' : 'bg-white'} h-[45px] px-4 py-3 absolute bottom-10 space-x-4`}>
               <span className={`cursor-pointer text-center hover:text-[#4c7cdf]  ${filtered === 'all' ? "text-[#4c7cdf]" : ''}`} onClick={ () => setFiltered('all')}>All</span>
               <span className={`cursor-pointer hover:text-[#4c7cdf]  ${filtered === 'active' ? "text-[#4c7cdf]" : ''}`} onClick={ () => setFiltered('active')}>Active</span>
               <span className= {`cursor-pointer hover:text-[#4c7cdf]  ${filtered === 'completed' ? "text-[#4c7cdf]" : ''}`} onClick={ () => setFiltered('completed')}>Completed</span>
